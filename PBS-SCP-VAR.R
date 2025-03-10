@@ -173,5 +173,5 @@ abline(v = cpts(fit_pelt_example), col = "red", lwd = 2, lty = 2)
 abline(v = cpts(fit_binseg_example), col = "blue", lwd = 2, lty = 3)
 
 legend("topleft", legend = c("PELT (AIC)", "BinSeg (AIC)"),
-       col = c("red", "green"), lty = c(2,3), lwd = 2)
+       col = c("red", "blue"), lty = c(2,3), lwd = 2)
 
