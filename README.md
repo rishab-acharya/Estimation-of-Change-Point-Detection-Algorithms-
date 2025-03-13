@@ -120,6 +120,9 @@ The images generated from the variance analyses are saved in the `IMAGES` folder
   </tr>
 </table>
 
+source("PBS-SCP-VAR.R")
+
+
 
 ## Prerequisites
 
