@@ -61,6 +61,64 @@ This repository contains a collection of R scripts that perform change point det
   </tr>
 </table>
 
+## Change in Variance Analysis using `cpt.var`
+
+This repository now includes scripts to test change in variance using the `cpt.var` function from the [changepoint](https://cran.r-project.org/web/packages/changepoint/index.html) package. In these scripts, synthetic time series data is generated with constant mean but varying variance. The variance shift is then detected using both the PELT and BinSeg methods.
+
+### Code Overview
+
+1. **Data Generation:**  
+   The scripts generate data with specified segment lengths, constant means, and differing standard deviations. In the variance analysis, the means are kept constant while the standard deviation changes to simulate a variance shift.
+
+2. **Detection Functions:**  
+   - **PELT Detection:**  
+     The function `detect_pelt` (or `detect_pelt_crops` in PBS-SCP-VAR) applies the `cpt.var` function with the PELT method using a specified penalty (e.g., AIC, BIC, or MBIC).  
+     ```r
+     fit <- cpt.var(data, method = "PELT", penalty = "BIC")
+     cpts(fit)  # Extracts the change point indices
+     ```
+   - **BinSeg Detection:**  
+     Similarly, `detect_binseg` (or `detect_binseg_crops` in PBS-SCP-VAR) applies the `cpt.var` function with the BinSeg method.  
+     ```r
+     fit <- cpt.var(data, method = "BinSeg", penalty = "BIC")
+     cpts(fit)
+     ```
+
+3. **Simulation and Sensitivity Analysis:**  
+   The scripts include repeated simulations to evaluate the average number of detected change points as the standard deviation in one segment is varied. This sensitivity analysis helps compare the performance of different penalty methods (AIC, BIC, MBIC) under various noise conditions.
+
+4. **Plotting:**  
+   The scripts generate plots that:
+   - Show the detected change points (CP) overlaid on the time series.
+   - Illustrate the sensitivity of the methods to changes in variance.
+   These plots are automatically saved as PNG images.
+
+### Automatically Embedding Generated Plots
+
+The images generated from the variance analyses are saved in the `IMAGES` folder. Below are HTML tables that embed the plots in a side-by-side layout:
+
+#### PBS-SCP-VAR (Single Change Point Variance)
+<table>
+  <tr>
+    <td align="center"><img src="IMAGES/PBS-SCP-CP.png" alt="PBS-SCP-CP" width="400"/></td>
+    <td align="center"><img src="IMAGES/PBS-SCP-VAR.png" alt="PBS-SCP-VAR" width="400"/></td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><strong>PBS-SCP-VAR Results</strong></td>
+  </tr>
+</table>
+
+#### PBS-MCP-VAR (Multiple Change Point Variance)
+<table>
+  <tr>
+    <td align="center"><img src="IMAGES/PBS-MCP-CP.png" alt="PBS-MCP-CP" width="300"/></td>
+    <td align="center"><img src="IMAGES/PELT-MCP-VAR.png" alt="PELT-MCP-VAR" width="300"/></td>
+    <td align="center"><img src="IMAGES/BINSEG-MCP-VAR.png" alt="BINSEG-MCP-VAR" width="300"/></td>
+  </tr>
+  <tr>
+    <td align="center" colspan="3"><strong>PBS-MCP-VAR Results</strong></td>
+  </tr>
+</table>
 
 
 ## Prerequisites
