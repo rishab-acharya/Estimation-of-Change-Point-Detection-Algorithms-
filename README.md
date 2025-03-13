@@ -122,6 +122,129 @@ The images generated from the variance analyses are saved in the `IMAGES` folder
 
 source("PBS-SCP-VAR.R")
 
+# Change Point Detection in Mean and Variance
+
+This repository extends the analysis to detect **change points** in both **mean** and **variance** of a time series. Two main scripts demonstrate this:
+
+1. **PBS-SCP-MEANVAR.R**  
+   - **Purpose:** Analyzes scenarios where there is **one** change point (single boundary) in both the mean and variance.  
+   - **Key Functions:**  
+     - `simulate_single_meanvar()`: Generates data with a single mean/variance shift.  
+     - `detect_pelt_1change()` / `detect_binseg_1change()`: Use the `cpt.meanvar` function (from the [changepoint](https://cran.r-project.org/web/packages/changepoint/index.html) package) with **PELT** or **BinSeg** methods, allowing for a single CP (Q=1).  
+   - **Sensitivity Analyses:**  
+     - Varies the **mean** shift (while keeping variance fixed) to see how frequently each method detects exactly one change point.  
+     - Varies the **variance** shift (while keeping the mean fixed) to see detection performance under different noise conditions.
+
+2. **PBS-MCP-MEANVAR-EST.R**  
+   - **Purpose:** Analyzes **multiple** change points (MCP) in both mean and variance.  
+   - **Key Functions:**  
+     - `cpt.meanvar(x, method="PELT" | "BinSeg")`: Detects an unknown number of changes (or up to a specified `Q`) in a simulated multi-segment series.  
+     - Summaries of how often each method finds the correct number of change points, distribution of estimated CP locations, and distribution of estimated segment means/variances.
+
+---
+
+## Plots and Figures
+
+Below are the generated plots for both **single** and **multiple** change-point analyses in mean and variance. The images are sorted according to the scripts and scenarios they belong to. All images are stored in (or referenced from) the `IMAGES/` folder (adjust the path as needed).
+
+### A) Single Change Point (PBS-SCP-MEANVAR.R)
+
+<table>
+  <!-- Row 1: Overall Single CP in Mean+Variance -->
+  <tr>
+    <td align="center">
+      <img src="IMAGES/PBS-SCP-MEANVAR.png" alt="PBS-SCP-MEANVAR" width="400"/>
+    </td>
+    <td align="center">
+      <img src="IMAGES/SCP-MEANVAR.png" alt="SCP-MEANVAR" width="400"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><strong>Overall Single-Change Analysis</strong></td>
+  </tr>
+
+  <!-- Row 2: Mean Shift Scenarios S1,S2 or S12 -->
+  <tr>
+    <td align="center">
+      <img src="IMAGES/BINSEG-MEAN-S12.png" alt="BINSEG-MEAN-S12" width="400"/>
+    </td>
+    <td align="center">
+      <img src="IMAGES/PELT-MEAN-S12.png" alt="PELT-MEAN-S12" width="400"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><strong>Mean Shift, Scenarios 1 &amp; 2</strong></td>
+  </tr>
+
+  <!-- Row 3: Mean Shift Scenarios S3,S4 or S34 -->
+  <tr>
+    <td align="center">
+      <img src="IMAGES/BINSEG-MEAN-S34.png" alt="BINSEG-MEAN-S34" width="400"/>
+    </td>
+    <td align="center">
+      <img src="IMAGES/PELT-MEAN-S34.png" alt="PELT-MEAN-S34" width="400"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><strong>Mean Shift, Scenarios 3 &amp; 4</strong></td>
+  </tr>
+
+  <!-- Row 4: Variance Shift Scenarios S1,S2 or S12 -->
+  <tr>
+    <td align="center">
+      <img src="IMAGES/BINSEG-VAR-S12.png" alt="BINSEG-VAR-S12" width="400"/>
+    </td>
+    <td align="center">
+      <img src="IMAGES/PELT-VAR-S12.png" alt="PELT-VAR-S12" width="400"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><strong>Variance Shift, Scenarios 1 &amp; 2</strong></td>
+  </tr>
+
+  <!-- Row 5: Variance Shift Scenarios S3,S4 or S34 -->
+  <tr>
+    <td align="center">
+      <img src="IMAGES/BINSEG-VAR-S34.png" alt="BINSEG-VAR-S34" width="400"/>
+    </td>
+    <td align="center">
+      <img src="IMAGES/PELT-VAR-S34.png" alt="PELT-VAR-S34" width="400"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><strong>Variance Shift, Scenarios 3 &amp; 4</strong></td>
+  </tr>
+</table>
+
+---
+
+### B) Multiple Change Points (PBS-MCP-MEANVAR-EST.R)
+
+<table>
+  <!-- Row 1: Overall Multiple CP in Mean+Variance -->
+  <tr>
+    <td align="center">
+      <img src="IMAGES/BINSEG-MCP-MEANVAR.png" alt="BINSEG-MCP-MEANVAR" width="400"/>
+    </td>
+    <td align="center">
+      <img src="IMAGES/PELT-MCP-MEANVAR.png" alt="PELT-MCP-MEANVAR" width="400"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><strong>Multiple-Change Analysis: BinSeg vs. PELT</strong></td>
+  </tr>
+
+  <!-- Row 2: Distribution of CPs -->
+  <tr>
+    <td align="center" colspan="2">
+      <img src="IMAGES/PBS-MCP-3CPDIST.png" alt="PBS-MCP-3CPDIST" width="400"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><strong>Distribution of 3 CPs in Multiple-Change Analysis</strong></td>
+  </tr>
+</table>
+
 
 
 ## Prerequisites
