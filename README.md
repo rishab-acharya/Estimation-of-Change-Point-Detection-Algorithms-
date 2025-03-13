@@ -215,10 +215,7 @@ This section of the repository applies change point detection techniques to real
    <table>
      <tr>
        <td align="center">
-         <img src="BTC_IMAGES/BTC_EGARCH_RawCPD.png" alt="Raw Log Returns CPD" width="400"/>
-       </td>
-       <td align="center">
-         <img src="BTC_IMAGES/BTC_EGARCH_ResCPD.png" alt="EGARCH Residuals CPD" width="400"/>
+         <img src="BTC_IMAGES/RAW-EGARCH-BTC.png" alt="Raw Log Returns CPD" width="400"/>
        </td>
      </tr>
      <tr>
@@ -238,7 +235,7 @@ This section of the repository applies change point detection techniques to real
    <table>
      <tr>
        <td align="center">
-         <img src="BTC_IMAGES/BTC_Weekly_CPD.png" alt="Weekly Log Returns CPD" width="400"/>
+         <img src="BTC_IMAGES/BS-BTC-WEEKLY.png" alt="Weekly Log Returns CPD" width="400"/>
        </td>
      </tr>
      <tr>
@@ -258,6 +255,32 @@ This section of the repository applies change point detection techniques to real
      
    *Note:* This script provides important background information on Bitcoin's statistical properties.
 
+    **Resulting Plots:**
+   <table>
+  <tr>
+    <td align="center">
+      <img src="BTC_IMAGES/BTC-ROLLING AVG.png" alt="Raw Log Returns CPD" width="400"/>
+    </td>
+    <td align="center">
+      <img src="BTC_IMAGES/BTC-ROLLING SD.png" alt="EGARCH Residuals CPD" width="400"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="BTC_IMAGES/BTC-ACF.png" alt="EGARCH Residual ACF" width="400"/>
+    </td>
+    <td align="center">
+      <img src="BTC_IMAGES/BTC-HIST-QQ.png" alt="EGARCH Diagnostics" width="400"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2">
+      <strong>EGARCH Analysis: Change Point Detection on Raw Log Returns, EGARCH Standardized Residuals, and Diagnostic Plots</strong>
+    </td>
+  </tr>
+</table>
+
+
 5. **Monthly Analysis (PBS-BTC-monthly.R) & Weekly Analysis (PBS-BTC-weekly.R):**  
    - **Frequency-Based CPD:**  
      These scripts create monthly and weekly time series, compute log returns, and apply two CPD methods:
@@ -267,24 +290,57 @@ This section of the repository applies change point detection techniques to real
      Both scripts generate plots that overlay the detected change points on the log returns with date-labeled x-axes.
    - **Output:**  
      The change point dates (formatted as Month-Year) are printed to the console.
+
+
+
+**Resulting PELT Diagnostic (Elbow) Plot:**
+<table>
+  <tr>
+    <td align="center">
+      <img src="BTC_IMAGES/BTC-WEEKLY-ELBOW.png" alt="PELT Elbow Plot" width="400"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <strong>Diagnostic Elbow Plot for PELT Change Point Detection</strong>
+    </td>
+  </tr>
+</table>
+
      
    **Resulting Monthly Plot:**
    <table>
      <tr>
        <td align="center">
-         <img src="BTC_IMAGES/BTC_Monthly_CPD.png" alt="Monthly Log Returns CPD" width="400"/>
+         <img src="BTC_IMAGES/PBS-BTC-MONTHLY.png" alt="Monthly Log Returns CPD" width="400"/>
        </td>
        <td align="center">
-         <img src="BTC_IMAGES/BTC_Monthly_Diagnostics.png" alt="Monthly Log Returns Diagnostics" width="400"/>
+         <img src="BTC_IMAGES/BTC-MONTHLY-LOG.png" alt="Monthly Log Returns Diagnostics" width="400"/>
        </td>
      </tr>
      <tr>
        <td align="center" colspan="2"><strong>Monthly Analysis: Change Point Detection and Diagnostics on Bitcoin Log Returns</strong></td>
      </tr>
    </table>
-   
-   *A similar approach is used in the weekly analysis script to produce comparable plots for weekly log returns.*
 
+   **Resulting Weekly Plot:**
+<table>
+  <tr>
+    <td align="center">
+      <img src="BTC_IMAGES/PBS-BTC-WEEKLY.png" alt="Weekly Log Returns CPD" width="400"/>
+    </td>
+    <td align="center">
+      <img src="BTC_IMAGES/BTC-WEEKLY-RETURNS.png" alt="Weekly Log Returns Diagnostics" width="400"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2">
+      <strong>Weekly Analysis: Change Point Detection and Diagnostics on Bitcoin Log Returns</strong>
+    </td>
+  </tr>
+</table>
+   
+   
 ---
 
 
