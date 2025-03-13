@@ -14,7 +14,13 @@ This repository contains a collection of R scripts that perform change point det
     - Implements single change point detection functions using both BinSeg and PELT (with Q set to 1).
     - Provides repeated simulation functions and sensitivity analyses (with and without MAD normalization).
     - Generates sensitivity plots and visualizations for single change point detection under different noise conditions.
-    - ![Pelt and BinSeg detecting a single change in mean](IMAGES/PBS-SCP-MEAN.png)
+    <table>
+  <tr>
+    <td><img src="IMAGES/SCP-MEAN-CP.png" alt="Plot 1" width="400"/></td>
+    <td><img src="IMAGES/PBS-SCP-MEAN.png" alt="Plot 2" width="400"/></td>
+    <td><img src="IMAGES/PBS-SCP-MEAN-MAD.png" alt="Plot 2" width="400"/></td>
+  </tr>
+</table>
 
 
 - **PBS-MCP-MEAN.R**  
@@ -27,17 +33,14 @@ This repository contains a collection of R scripts that perform change point det
     - Implements sensitivity analysis by varying the magnitude of the mean shift.
     - Generates multiple 2×2 plots comparing the performance of penalty methods (AIC, BIC, MBIC) under different noise conditions (low vs. high noise).
     - Provides example plots of time series with overlaid change points for visual inspection.
+     <table>
+  <tr>
+    <td><img src="IMAGES/MCP-MEAN-CP.png" alt="Plot 1" width="400"/></td>
+    <td><img src="IMAGES/PBS-MCP-MEAN.png" alt="Plot 2" width="400"/></td>
+    <td><img src="IMAGES/PBS-MCP-MAD.png" alt="Plot 2" width="400"/></td>
+  </tr>
+</table>
 
-
-- **PBS-MCP1-MEAN.R**  
-  - **Purpose:**  
-    Generates data with multiple change points (MCP) and applies both BinSeg and PELT methods for detection.  
-  - **Highlights:**  
-    - Simulates data with several segments (with different means and noise levels).
-    - Detects change points using:
-      - `detect_changepoints_binseg()` – using the BinSeg method.
-      - `detect_changepoints_pelt()` – using the PELT method.
-    - Overlays detected change points on time series plots for both low and high noise examples.
 
 - **PBS-MCP2.R**  
   - **Purpose:**  
@@ -50,7 +53,13 @@ This repository contains a collection of R scripts that perform change point det
       - The fraction of runs where both change points are detected.
       - The average number of detected change points versus the gap value.
     - Includes an example visualization of detected change points on a single simulated time series.
-  
+   <table>
+  <tr>
+    <td><img src="IMAGES/PBS-MCP2.png" alt="Plot 1" width="400"/></td>
+    <td><img src="IMAGES/P-MCP2.png" alt="Plot 2" width="400"/></td>
+    <td><img src="IMAGES/B-MCP2.png" alt="Plot 2" width="400"/></td>
+  </tr>
+</table>
 
 
 
