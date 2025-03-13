@@ -172,7 +172,7 @@ Different detection methods (PELT and BinSeg) and various penalty criteria (AIC,
       </tr>
       <tr>
         <td align="center" colspan="2">
-          <img src="IMAGES/PBS-MCP-3CPDIST.png" alt="Distribution of CP Locations" width="400"/>
+          <img src="IMAGES/PBS-MCP-3CPDIST..png" alt="Distribution of CP Locations" width="400"/>
         </td>
       </tr>
       <tr>
