@@ -1,6 +1,6 @@
 # Estimation-of-Change-Point-Detection-Algorithms
 
-# Simulation Study for Change Point Detection in Time Series
+## Simulation Study for Change Point Detection in Time Series
 
 This repository contains a collection of R scripts developed as part of my dissertation. The simulation study focuses on evaluating change point detection methods for time series data. Three families of methods are considered:
 
@@ -185,6 +185,108 @@ Different detection methods (PELT and BinSeg) and various penalty criteria (AIC,
 ## How to Run the Simulation Study
 
 These R scripts were designed and executed as part of the simulation study conducted for my dissertation. They simulate piecewise-stationary time series data with known change points and apply different change point detection methods to estimate the locations and parameters of the changes.
+
+---
+
+### Change Point Detection within Bitcoin Prices
+
+This section of the repository applies change point detection techniques to real-world Bitcoin price data. The analysis investigates changes in the behavior of Bitcoin prices over the period 2014–2021 using multiple approaches. In particular, the study examines:
+  
+- **Raw Log Returns Analysis:** Direct change point detection on weekly or monthly log returns.
+- **EGARCH Modeling:** Fitting an EGARCH(1,1) model to account for volatility clustering and then applying CPD on standardized residuals.
+- **Frequency-Based Analysis:** Conducting separate analyses on weekly and monthly data.
+- **Exploratory Analysis:** Assessing descriptive statistics, rolling metrics, and autocorrelation properties.
+
+### Overview of the Analysis
+
+1. **Data Preparation:**  
+   Bitcoin closing prices are imported from a CSV file, converted to a time series (using `xts`), and subset to cover January 1, 2014–December 31, 2021. Log returns are then computed at various frequencies (daily, weekly, and monthly).
+
+2. **Raw Model CPD and Diagnostics (BS-BTC-EGARCH.R):**  
+   - **Raw Log Returns:** Weekly log returns are calculated from the closing prices.
+   - **Change Point Detection:**  
+     Change points in the raw log returns are detected using the `cpt.meanvar` function (with the BinSeg method, AIC penalty, and Q = 5).
+   - **Diagnostics:**  
+     A series of tests (ADF, KPSS, Ljung-Box, ARCH, and Jarque-Bera) are applied to assess stationarity, autocorrelation, and heteroskedasticity.
+   - **EGARCH Modeling:**  
+     An EGARCH(1,1) model is fitted (using the `rugarch` package) to capture volatility effects. Standardized residuals are extracted and then analyzed with CPD to detect structural changes not explained by the volatility model.
+     
+   **Resulting Plots:**
+   <table>
+     <tr>
+       <td align="center">
+         <img src="BTC_IMAGES/BTC_EGARCH_RawCPD.png" alt="Raw Log Returns CPD" width="400"/>
+       </td>
+       <td align="center">
+         <img src="BTC_IMAGES/BTC_EGARCH_ResCPD.png" alt="EGARCH Residuals CPD" width="400"/>
+       </td>
+     </tr>
+     <tr>
+       <td align="center" colspan="2"><strong>EGARCH Analysis: Change Point Detection on Raw Log Returns and on EGARCH Standardized Residuals</strong></td>
+     </tr>
+   </table>
+
+3. **Weekly Analysis (BS-BTC-WEEKLY.R):**  
+   - **Weekly Series Construction:**  
+     The daily closing prices are aggregated into a weekly series (using the first trading day of each week), and weekly log returns are computed.
+   - **Change Point Detection:**  
+     The `cpt.meanvar` function (using BinSeg with AIC penalty and a specified number of change points) is applied on the weekly returns.
+   - **Custom Timeline Plot:**  
+     A custom x-axis (showing years from 2014 to 2021) is built for clear visualization.
+     
+   **Resulting Plot:**
+   <table>
+     <tr>
+       <td align="center">
+         <img src="BTC_IMAGES/BTC_Weekly_CPD.png" alt="Weekly Log Returns CPD" width="400"/>
+       </td>
+     </tr>
+     <tr>
+       <td align="center"><strong>Weekly Analysis: Change Point Detection on Bitcoin Weekly Log Returns</strong></td>
+     </tr>
+   </table>
+
+4. **Exploratory Analysis (BTC-EXPLORATORY.R):**  
+   - **Descriptive Statistics:**  
+     The script computes key statistics (mean, variance, skewness, kurtosis) for daily, weekly, and monthly returns.
+   - **Rolling Metrics:**  
+     It calculates a 30-day rolling average and standard deviation to illustrate price trends and volatility.
+   - **Distribution and ACF Plots:**  
+     Histograms, QQ plots, and autocorrelation plots are generated to explore the distribution and dependency structure of the returns.
+   - **Stationarity Testing:**  
+     An Augmented Dickey-Fuller (ADF) test is performed to check for stationarity.
+     
+   *Note:* This script provides important background information on Bitcoin's statistical properties.
+
+5. **Monthly Analysis (PBS-BTC-monthly.R) & Weekly Analysis (PBS-BTC-weekly.R):**  
+   - **Frequency-Based CPD:**  
+     These scripts create monthly and weekly time series, compute log returns, and apply two CPD methods:
+       - **Method A (BinSeg):** Using a Manual penalty with a predefined number of change points.
+       - **Method B (PELT):** Using the CROPS penalty to allow adaptive detection.
+   - **Plotting with Custom Labels:**  
+     Both scripts generate plots that overlay the detected change points on the log returns with date-labeled x-axes.
+   - **Output:**  
+     The change point dates (formatted as Month-Year) are printed to the console.
+     
+   **Resulting Monthly Plot:**
+   <table>
+     <tr>
+       <td align="center">
+         <img src="BTC_IMAGES/BTC_Monthly_CPD.png" alt="Monthly Log Returns CPD" width="400"/>
+       </td>
+       <td align="center">
+         <img src="BTC_IMAGES/BTC_Monthly_Diagnostics.png" alt="Monthly Log Returns Diagnostics" width="400"/>
+       </td>
+     </tr>
+     <tr>
+       <td align="center" colspan="2"><strong>Monthly Analysis: Change Point Detection and Diagnostics on Bitcoin Log Returns</strong></td>
+     </tr>
+   </table>
+   
+   *A similar approach is used in the weekly analysis script to produce comparable plots for weekly log returns.*
+
+---
+
 
 
 
