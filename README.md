@@ -99,7 +99,7 @@ This repository comprises a collection of R scripts developed as part of my diss
     <table>
       <tr>
         <td align="center"><img src="IMAGES/PBS-SCP-CP.png" alt="SCP Variance CP Overlay" width="400"/></td>
-        <td align="center"><img src="IMAGES/PBS-SCP-VAR.png" alt="SCP Variance" width="400"/></td>
+        <td align="center"><img src="IMAGES/PBS-SCP-VAR.png" alt="SCP Variance" width="475"/></td>
       </tr>
       <tr>
         <td align="center" colspan="2"><strong>PBS-SCP-VAR Results</strong></td>
