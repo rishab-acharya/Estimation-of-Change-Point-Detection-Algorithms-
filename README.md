@@ -3,33 +3,29 @@
 ## Simulation Study for Change Point Detection in Time Series
 
 This repository comprises a collection of R scripts developed as part of my dissertation to rigorously evaluate change point detection methodologies in time series analysis. In our simulation study, we generate synthetic piecewise-stationary processes with predetermined structural breaks and employ statistical criteria to infer abrupt changes in the underlying parameters. Specifically, we consider three families of methods:
-
 1. **Change in Mean Detection** using `cpt.mean`  
    *Model:*  
-   \[
+   $$ 
    X_t = \mu_j + \epsilon_t,\quad t \in \text{segment } j,
-   \]
-   where \(\mu_j\) denotes the segment-specific mean and \(\epsilon_t\) is an i.i.d. noise component. Change point detection is performed by optimizing criteria such as AIC, BIC, or MBIC to balance model complexity with goodness-of-fit.
+   $$  
+   where \(\mu_j\) denotes the segment-specific mean and \(\epsilon_t\) is an i.i.d. noise component. Change point detection is performed by optimizing criteria (e.g., AIC, BIC, or MBIC) to balance model complexity with goodness-of-fit.
 
 2. **Change in Variance Detection** using `cpt.var`  
    *Model:*  
-   \[
+   $$ 
    X_t = \mu + \epsilon_t,\quad \epsilon_t \sim N(0,\sigma_j^2),
-   \]
+   $$  
    where the mean is constant but the variance \(\sigma_j^2\) varies across segments. The function `cpt.var` is used to identify shifts in the dispersion structure.
 
 3. **Change in Mean and Variance Detection** using `cpt.meanvar`  
    *Model:*  
-   \[
+   $$ 
    X_t = \mu_j + \epsilon_t,\quad \epsilon_t \sim N(0,\sigma_j^2),
-   \]
-   allowing for simultaneous changes in both the location and scale parameters.
-
-Different segmentation algorithms (PELT and BinSeg) and penalty criteria (AIC, BIC, MBIC) are compared through extensive Monte Carlo simulations.
-
+   $$  
+   allowing for simultaneous changes in both the location (\(\mu_j\)) and scale (\(\sigma_j^2\)) parameters.
 ---
 
-## Repository Structure
+### Repository Structure
 
 - **PBS-SCP-MEAN.R**  
   - **Purpose:** Single change point (SCP) detection in mean.  
@@ -199,13 +195,13 @@ Different segmentation algorithms (PELT and BinSeg) and penalty criteria (AIC, B
 
 ---
 
-## How to Run the Simulation Study
+### How to Run the Simulation Study
 
 These R scripts were implemented as part of a rigorous simulation study to evaluate change point detection methods. In our study, we generate piecewise-stationary time series data with known structural breaks and apply segmentation algorithms to estimate the locations and parameters of these breaks. The methodologies are grounded in likelihood-based inference and information criteria, balancing model fit and complexity.
 
 ---
 
-### Change Point Detection within Bitcoin Prices
+## Change Point Detection within Bitcoin Prices
 
 This section of the repository applies change point detection techniques to real-world Bitcoin price data. The analysis investigates changes in the behavior of Bitcoin prices over the period 2014–2021 using multiple approaches. In particular, the study examines:
   
