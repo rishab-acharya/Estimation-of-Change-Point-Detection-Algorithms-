@@ -17,8 +17,8 @@ library(tseries)
 library(FinTS)
 library(rugarch)
 
-# Read CSV (adjust file path if needed)
-data <- read.csv("C:/Users/risha/Downloads/archive (2)/coin_Bitcoin.csv", 
+# Read CSV file (adjust file path if needed)
+data <- read.csv("C:\\Users\\risha\\OneDrive - University of Edinburgh\\CPD CODE\\Estimation-of-Change-Point-Detection-Algorithms-\\coin_Bitcoin.csv", 
                  header = TRUE, stringsAsFactors = FALSE)
 data$Date <- as.Date(data$Date, format = "%Y-%m-%d")
 

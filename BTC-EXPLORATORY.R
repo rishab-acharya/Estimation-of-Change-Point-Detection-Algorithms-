@@ -7,15 +7,20 @@ library(tseries)
 # -------------------------
 # 1. Data Preparation
 # -------------------------
-# Read CSV data and convert Date column to Date type
-data <- read.csv("C:/Users/risha/Downloads/archive (2)/coin_Bitcoin.csv", 
+# Read CSV file (adjust file path if needed)
+data <- read.csv("C:/Users/risha/OneDrive - University of Edinburgh/CPD CODE/Estimation-of-Change-Point-Detection-Algorithms-/coin_Bitcoin.csv", 
                  header = TRUE, stringsAsFactors = FALSE)
+
+# Ensure the Date column is correctly formatted as Date
 data$Date <- as.Date(data$Date, format = "%Y-%m-%d")
 
 # Subset data from January 1, 2014 to December 31, 2021
 start_date <- as.Date("2014-01-01")
 end_date   <- as.Date("2021-12-31")
 data_sub   <- subset(data, Date >= start_date & Date <= end_date)
+
+# Check the class of Date column (should return "Date")
+print(class(data_sub$Date))
 
 # -------------------------
 # 2. Return Calculations
