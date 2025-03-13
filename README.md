@@ -2,13 +2,30 @@
 
 ## Simulation Study for Change Point Detection in Time Series
 
-This repository contains a collection of R scripts developed as part of my dissertation. The simulation study focuses on evaluating change point detection methods for time series data. Three families of methods are considered:
+This repository comprises a collection of R scripts developed as part of my dissertation to rigorously evaluate change point detection methodologies in time series analysis. In our simulation study, we generate synthetic piecewise-stationary processes with predetermined structural breaks and employ statistical criteria to infer abrupt changes in the underlying parameters. Specifically, we consider three families of methods:
 
-1. **Change in Mean Detection** using `cpt.mean`
-2. **Change in Variance Detection** using `cpt.var`
-3. **Change in Mean and Variance Detection** using `cpt.meanvar`
+1. **Change in Mean Detection** using `cpt.mean`  
+   *Model:*  
+   \[
+   X_t = \mu_j + \epsilon_t,\quad t \in \text{segment } j,
+   \]
+   where \(\mu_j\) denotes the segment-specific mean and \(\epsilon_t\) is an i.i.d. noise component. Change point detection is performed by optimizing criteria such as AIC, BIC, or MBIC to balance model complexity with goodness-of-fit.
 
-Different detection methods (PELT and BinSeg) and various penalty criteria (AIC, BIC, MBIC) are applied. The study involves simulating piecewise-stationary data with known change points and evaluating the performance of each method.
+2. **Change in Variance Detection** using `cpt.var`  
+   *Model:*  
+   \[
+   X_t = \mu + \epsilon_t,\quad \epsilon_t \sim N(0,\sigma_j^2),
+   \]
+   where the mean is constant but the variance \(\sigma_j^2\) varies across segments. The function `cpt.var` is used to identify shifts in the dispersion structure.
+
+3. **Change in Mean and Variance Detection** using `cpt.meanvar`  
+   *Model:*  
+   \[
+   X_t = \mu_j + \epsilon_t,\quad \epsilon_t \sim N(0,\sigma_j^2),
+   \]
+   allowing for simultaneous changes in both the location and scale parameters.
+
+Different segmentation algorithms (PELT and BinSeg) and penalty criteria (AIC, BIC, MBIC) are compared through extensive Monte Carlo simulations.
 
 ---
 
@@ -17,9 +34,9 @@ Different detection methods (PELT and BinSeg) and various penalty criteria (AIC,
 - **PBS-SCP-MEAN.R**  
   - **Purpose:** Single change point (SCP) detection in mean.  
   - **Highlights:**  
-    - Simulates data with two segments (one mean shift).
-    - Implements single change point detection using `cpt.mean` with both PELT and BinSeg (with Q set to 1).
-    - Includes repeated simulation functions and sensitivity analyses (with and without MAD normalization).
+    - Simulates a bi-segmental time series with one mean shift.
+    - Implements SCP detection via `cpt.mean` using both PELT and BinSeg (with \(Q = 1\)).
+    - Includes repeated simulation and sensitivity analysis (with and without MAD normalization) to evaluate detection performance.
   - **Example Code:**  
     ```r
     fit <- cpt.mean(data_vector, method = "PELT", penalty = "BIC")
@@ -33,14 +50,14 @@ Different detection methods (PELT and BinSeg) and various penalty criteria (AIC,
         <td><img src="IMAGES/PBS-SCP-MEAN-MAD.png" alt="SCP Mean with MAD Normalization" width="400"/></td>
       </tr>
     </table>
-    *Figure: Single change point detection in mean using both standard and MAD normalized data.*
+    *Figure: SCP detection in mean using both standard and MAD-normalized data.*
 
 - **PBS-MCP-MEAN.R**  
   - **Purpose:** Multiple change point (MCP) detection in mean.  
   - **Highlights:**  
-    - Simulates data with four segments (multiple mean shifts).
-    - Contains functions for repeated simulations and sensitivity analysis (varying the magnitude of the mean shift under different noise conditions).
-    - Generates comparative 2×2 plots for penalty methods (AIC, BIC, MBIC).
+    - Simulates a time series with four segments exhibiting distinct mean shifts.
+    - Contains functions for repeated simulations and sensitivity analysis by varying the magnitude of mean shifts under different noise regimes.
+    - Generates comparative 2×2 plots to assess performance across penalty criteria (AIC, BIC, MBIC).
   - **Example Code:**  
     ```r
     fit <- cpt.mean(data_vector, method = "BinSeg", penalty = "MBIC", Q = 15)
@@ -54,13 +71,13 @@ Different detection methods (PELT and BinSeg) and various penalty criteria (AIC,
         <td><img src="IMAGES/PBS-MCP-MAD.png" alt="MCP Mean with MAD Normalization" width="400"/></td>
       </tr>
     </table>
-    *Figure: Multiple change point detection in mean with sensitivity analysis.*
+    *Figure: MCP detection in mean with sensitivity analysis.*
 
 - **PBS-MCP2.R**  
   - **Purpose:** Detection of two closely spaced change points in mean.  
   - **Highlights:**  
-    - Simulates data with two closely spaced mean shifts.
-    - Uses repeated simulations to evaluate how often both change points are detected and plots the average number of detected CPs against the gap value.
+    - Simulates data with two adjacent mean shifts.
+    - Uses repeated simulations to assess the probability of detecting both change points and plots the average number of detected CPs versus the gap between them.
   - **Example Code:**  
     ```r
     sim_res <- simulate_two_close_cps_pelt(times = 100, n = 200, first_cp = 100, gap = 5, penalty = "MBIC")
@@ -74,13 +91,13 @@ Different detection methods (PELT and BinSeg) and various penalty criteria (AIC,
         <td><img src="IMAGES/B-MCP2.png" alt="BinSeg MCP2" width="400"/></td>
       </tr>
     </table>
-    *Figure: Detection of two closely spaced change points in mean.*
+    *Figure: Detection of two closely spaced CPs in mean.*
 
 - **PBS-SCP-VAR.R**  
   - **Purpose:** Single change point detection in variance.  
   - **Highlights:**  
-    - Simulates data with two segments having a variance shift (constant mean).
-    - Applies `cpt.var` with both PELT and BinSeg to detect the variance change.
+    - Simulates a bi-segmental time series with a variance shift (constant mean).
+    - Uses `cpt.var` with both PELT and BinSeg to detect structural breaks in variance.
   - **Example Code:**  
     ```r
     fit <- cpt.var(data_vector, method = "PELT", penalty = "BIC")
@@ -100,8 +117,8 @@ Different detection methods (PELT and BinSeg) and various penalty criteria (AIC,
 - **PBS-MCP-VAR.R**  
   - **Purpose:** Multiple change point detection in variance.  
   - **Highlights:**  
-    - Simulates a time series with four segments having different variances.
-    - Conducts repeated simulations and sensitivity analysis on variance shifts.
+    - Simulates a time series with four segments with differing variances.
+    - Conducts repeated simulations and sensitivity analysis to study variance shifts.
   - **Example Code:**  
     ```r
     fit <- cpt.var(data_vector, method = "BinSeg", penalty = "BIC", Q = 5)
@@ -122,9 +139,9 @@ Different detection methods (PELT and BinSeg) and various penalty criteria (AIC,
 - **PBS-SCP-MEANVAR.R**  
   - **Purpose:** Single change point detection in both mean and variance.  
   - **Highlights:**  
-    - Simulates data with two segments where both the mean and variance change.
-    - Uses `cpt.meanvar` with both PELT and BinSeg to detect the boundary.
-    - Sensitivity analyses are performed by varying the magnitude of the mean or variance shift.
+    - Simulates a bi-segmental time series with simultaneous changes in mean and variance.
+    - Uses `cpt.meanvar` with PELT and BinSeg for joint estimation of change points, segment means, and variances.
+    - Performs sensitivity analyses by varying the magnitude of mean and variance shifts.
   - **Example Code:**  
     ```r
     fit <- cpt.meanvar(data_vector, method = "PELT", penalty = "MBIC")
@@ -147,9 +164,9 @@ Different detection methods (PELT and BinSeg) and various penalty criteria (AIC,
 - **PBS-MCP-MEANVAR-EST.R**  
   - **Purpose:** Multiple change point detection in both mean and variance.  
   - **Highlights:**  
-    - Simulates a time series with four segments (three change points) where both the mean and variance differ.
-    - Runs a simulation study (e.g., N = 1000) to assess the frequency of correctly detected CPs.
-    - Summarizes the distributions of estimated segment means, variances, and CP locations.
+    - Simulates a multi-segment time series (4 segments with 3 true change points) with changes in both mean and variance.
+    - Conducts an extensive simulation study (e.g., \(N = 1000\)) to assess detection frequency and parameter estimation accuracy.
+    - Summarizes distributions of estimated segment means, variances, and change point locations.
   - **Example Code:**  
     ```r
     fit_pelt <- cpt.meanvar(x, method = "PELT")
@@ -184,7 +201,7 @@ Different detection methods (PELT and BinSeg) and various penalty criteria (AIC,
 
 ## How to Run the Simulation Study
 
-These R scripts were designed and executed as part of the simulation study conducted for my dissertation. They simulate piecewise-stationary time series data with known change points and apply different change point detection methods to estimate the locations and parameters of the changes.
+These R scripts were implemented as part of a rigorous simulation study to evaluate change point detection methods. In our study, we generate piecewise-stationary time series data with known structural breaks and apply segmentation algorithms to estimate the locations and parameters of these breaks. The methodologies are grounded in likelihood-based inference and information criteria, balancing model fit and complexity.
 
 ---
 
