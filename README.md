@@ -3,26 +3,22 @@
 ## Simulation Study for Change Point Detection in Time Series
 
 This repository comprises a collection of R scripts developed as part of my dissertation to rigorously evaluate change point detection methodologies in time series analysis. In our simulation study, we generate synthetic piecewise-stationary processes with predetermined structural breaks and employ statistical criteria to infer abrupt changes in the underlying parameters. Specifically, we consider three families of methods:
-1. **Change in Mean Detection** using `cpt.mean`  
-   *Model:*  
-   $$ 
-   X_t = \mu_j + \epsilon_t,\quad t \in \text{segment } j,
-   $$  
-   where \(\mu_j\) denotes the segment-specific mean and \(\epsilon_t\) is an i.i.d. noise component. Change point detection is performed by optimizing criteria (e.g., AIC, BIC, or MBIC) to balance model complexity with goodness-of-fit.
+1. **Change in Mean Detection** using `cpt.mean`
 
-2. **Change in Variance Detection** using `cpt.var`  
-   *Model:*  
-   $$ 
-   X_t = \mu + \epsilon_t,\quad \epsilon_t \sim N(0,\sigma_j^2),
-   $$  
-   where the mean is constant but the variance \(\sigma_j^2\) varies across segments. The function `cpt.var` is used to identify shifts in the dispersion structure.
+   This method assumes that the time series consists of segments where the average value (mean) is constant within each segment, but may shift abruptly at unknown points. The goal is to identify these shifts in the mean. The detection is guided by information criteria such as AIC, BIC, or MBIC, which help balance the complexity of the model (i.e., the number of segments) against how well the model fits the data.
 
-3. **Change in Mean and Variance Detection** using `cpt.meanvar`  
-   *Model:*  
-   $$ 
-   X_t = \mu_j + \epsilon_t,\quad \epsilon_t \sim N(0,\sigma_j^2),
-   $$  
-   allowing for simultaneous changes in both the location (\(\mu_j\)) and scale (\(\sigma_j^2\)) parameters.
+---
+
+2. **Change in Variance Detection** using `cpt.var`
+
+   In this approach, the time series is modeled with a constant average level across all observations, but the variability (variance) is allowed to differ between segments. The objective is to detect changes in the spread or volatility of the data. The method identifies points in time when the dispersion of the series changes, even if the average value remains the same.
+
+---
+
+3. **Change in Mean and Variance Detection** using `cpt.meanvar`
+
+   This method generalizes the previous two approaches by allowing both the average value and the variability to change between segments. It is used when there is evidence that both the level and the volatility of the time series are subject to abrupt changes. The algorithm simultaneously estimates the breakpoints along with the mean and variance for each segment.
+
 ---
 
 ### Repository Structure
