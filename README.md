@@ -199,26 +199,27 @@ These R scripts were implemented as part of a rigorous simulation study to evalu
 
 ## Change Point Detection within Bitcoin Prices
 
-This section of the repository applies change point detection techniques to real-world Bitcoin price data. The analysis investigates changes in the behavior of Bitcoin prices over the period 2014–2021 using multiple approaches. In particular, the study examines:
-  
-- **Raw Log Returns Analysis:** Direct change point detection on weekly or monthly log returns.
-- **EGARCH Modeling:** Fitting an EGARCH(1,1) model to account for volatility clustering and then applying CPD on standardized residuals.
-- **Frequency-Based Analysis:** Conducting separate analyses on weekly and monthly data.
-- **Exploratory Analysis:** Assessing descriptive statistics, rolling metrics, and autocorrelation properties.
+This section of the repository applies advanced change point detection methodologies to real-world Bitcoin price data. The analysis spans the period from 2014 to 2021 and investigates structural breaks in the price dynamics using multiple approaches. In our study, we rigorously test for abrupt changes in the statistical properties of Bitcoin returns by leveraging likelihood‐based segmentation techniques under different model specifications. In particular, we explore:
+
+- **Raw Log Returns Analysis:** Direct segmentation on the logarithmic returns of Bitcoin, where the focus is on detecting shifts in the central tendency and dispersion of the returns.
+- **EGARCH Modeling:** Fitting an Exponential GARCH(1,1) model to capture volatility clustering and then applying change point detection to the standardized residuals to reveal structural breaks in the volatility process.
+- **Frequency-Based Analysis:** Conducting CPD on data aggregated at different frequencies (weekly and monthly) to examine how the temporal resolution impacts the detection of regime changes.
+- **Exploratory Analysis:** Performing an extensive exploratory analysis that includes the computation of descriptive statistics, rolling metrics, and autocorrelation functions, which provide essential insights into the underlying dynamics of Bitcoin prices.
 
 ### Overview of the Analysis
 
 1. **Data Preparation:**  
-   Bitcoin closing prices are imported from a CSV file, converted to a time series (using `xts`), and subset to cover January 1, 2014–December 31, 2021. Log returns are then computed at various frequencies (daily, weekly, and monthly).
+   Bitcoin closing prices are imported from a CSV file and converted into an xts time series object. The dataset is then restricted to the period from January 1, 2014, to December 31, 2021. Log returns are computed at daily, weekly, and monthly frequencies, providing multiple perspectives on the temporal evolution of the price process.
 
 2. **Raw Model CPD and Diagnostics (BS-BTC-EGARCH.R):**  
-   - **Raw Log Returns:** Weekly log returns are calculated from the closing prices.
+   - **Raw Log Returns:**  
+     The weekly log returns are computed from the closing prices, thereby transforming the non-stationary price series into a stationary return series.
    - **Change Point Detection:**  
-     Change points in the raw log returns are detected using the `cpt.meanvar` function (with the BinSeg method, AIC penalty, and Q = 5).
+     Structural breaks in the raw log returns are identified using the `cpt.meanvar` function with the BinSeg algorithm. An AIC penalty is applied and the model is constrained to detect up to 5 change points. This method balances the log-likelihood improvement with model parsimony.
    - **Diagnostics:**  
-     A series of tests (ADF, KPSS, Ljung-Box, ARCH, and Jarque-Bera) are applied to assess stationarity, autocorrelation, and heteroskedasticity.
+     A battery of statistical tests is applied, including the Augmented Dickey-Fuller (ADF) test for stationarity, KPSS test for level stationarity, Ljung-Box test for autocorrelation, ARCH test for heteroskedasticity, and Jarque-Bera test for normality. These diagnostics rigorously assess the validity of the underlying model assumptions.
    - **EGARCH Modeling:**  
-     An EGARCH(1,1) model is fitted (using the `rugarch` package) to capture volatility effects. Standardized residuals are extracted and then analyzed with CPD to detect structural changes not explained by the volatility model.
+     To account for volatility clustering, an EGARCH(1,1) model is fitted using the `rugarch` package. The standardized residuals extracted from the model serve as inputs to further CPD analysis, thereby isolating structural shifts that are not attributable to conditional heteroskedasticity.
      
    **Resulting Plots:**
    <table>
@@ -234,11 +235,11 @@ This section of the repository applies change point detection techniques to real
 
 3. **Weekly Analysis (BS-BTC-WEEKLY.R):**  
    - **Weekly Series Construction:**  
-     The daily closing prices are aggregated into a weekly series (using the first trading day of each week), and weekly log returns are computed.
+     The daily closing prices are aggregated into a weekly time series by selecting the closing price of the first trading day of each week. Weekly log returns are then computed.
    - **Change Point Detection:**  
-     The `cpt.meanvar` function (using BinSeg with AIC penalty and a specified number of change points) is applied on the weekly returns.
+     The `cpt.meanvar` function is applied to the weekly returns using the BinSeg method with an AIC penalty and a pre-specified number of change points. This segmentation facilitates the identification of structural breaks on a weekly time scale.
    - **Custom Timeline Plot:**  
-     A custom x-axis (showing years from 2014 to 2021) is built for clear visualization.
+     A custom x-axis is constructed to display tick marks corresponding to calendar years (2014–2021), enhancing the interpretability of the change point locations in a temporal context.
      
    **Resulting Plot:**
    <table>
@@ -254,68 +255,62 @@ This section of the repository applies change point detection techniques to real
 
 4. **Exploratory Analysis (BTC-EXPLORATORY.R):**  
    - **Descriptive Statistics:**  
-     The script computes key statistics (mean, variance, skewness, kurtosis) for daily, weekly, and monthly returns.
+     The script computes key summary statistics—mean, variance, skewness, and kurtosis—for daily, weekly, and monthly returns, offering a comprehensive statistical profile of Bitcoin's return distribution.
    - **Rolling Metrics:**  
-     It calculates a 30-day rolling average and standard deviation to illustrate price trends and volatility.
+     A 30-day rolling average and a rolling standard deviation (volatility) are calculated to reveal underlying trends and the temporal evolution of risk.
    - **Distribution and ACF Plots:**  
-     Histograms, QQ plots, and autocorrelation plots are generated to explore the distribution and dependency structure of the returns.
+     Histograms, QQ plots, and autocorrelation function (ACF) plots are generated to assess the empirical distribution and temporal dependence in the return series.
    - **Stationarity Testing:**  
-     An Augmented Dickey-Fuller (ADF) test is performed to check for stationarity.
+     An Augmented Dickey-Fuller test is conducted on the price series to confirm the presence of stationarity after transformation to returns.
      
-   *Note:* This script provides important background information on Bitcoin's statistical properties.
-
-    **Resulting Plots:**
+   **Resulting Plots:**
    <table>
-  <tr>
-    <td align="center">
-      <img src="BTC IMAGES/BTC-ROLLING AVG.png" alt="Raw Log Returns CPD" width="400"/>
-    </td>
-    <td align="center">
-      <img src="BTC IMAGES/BTC-ROLLING SD.png" alt="EGARCH Residuals CPD" width="400"/>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="BTC IMAGES/BTC-ACF.png" alt="EGARCH Residual ACF" width="400"/>
-    </td>
-    <td align="center">
-      <img src="BTC IMAGES/BTC-HIST-QQ.png" alt="EGARCH Diagnostics" width="400"/>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" colspan="2">
-      <strong>EGARCH Analysis: Change Point Detection on Raw Log Returns, EGARCH Standardized Residuals, and Diagnostic Plots</strong>
-    </td>
-  </tr>
-</table>
-
+     <tr>
+       <td align="center">
+         <img src="BTC IMAGES/BTC-ROLLING AVG.png" alt="Raw Log Returns CPD" width="400"/>
+       </td>
+       <td align="center">
+         <img src="BTC IMAGES/BTC-ROLLING SD.png" alt="EGARCH Residuals CPD" width="400"/>
+       </td>
+     </tr>
+     <tr>
+       <td align="center">
+         <img src="BTC IMAGES/BTC-ACF.png" alt="EGARCH Residual ACF" width="400"/>
+       </td>
+       <td align="center">
+         <img src="BTC IMAGES/BTC-HIST-QQ.png" alt="EGARCH Diagnostics" width="400"/>
+       </td>
+     </tr>
+     <tr>
+       <td align="center" colspan="2">
+         <strong>EGARCH Analysis: Change Point Detection on Raw Log Returns, EGARCH Standardized Residuals, and Diagnostic Plots</strong>
+       </td>
+     </tr>
+   </table>
 
 5. **Monthly Analysis (PBS-BTC-monthly.R) & Weekly Analysis (PBS-BTC-weekly.R):**  
    - **Frequency-Based CPD:**  
-     These scripts create monthly and weekly time series, compute log returns, and apply two CPD methods:
-       - **Method A (BinSeg):** Using a Manual penalty with a predefined number of change points.
-       - **Method B (PELT):** Using the CROPS penalty to allow adaptive detection.
+     The monthly and weekly time series are constructed from the daily data, and logarithmic returns are computed. Two CPD methods are then employed:
+       - **Method A (BinSeg):** Implements a Manual penalty with a pre-defined maximum number of change points.
+       - **Method B (PELT):** Utilizes the CROPS penalty, which allows the model to adaptively choose the optimal number of change points.
    - **Plotting with Custom Labels:**  
-     Both scripts generate plots that overlay the detected change points on the log returns with date-labeled x-axes.
+     The resulting plots overlay the detected change points on the return series and feature a custom x-axis that displays dates (formatted as Month-Year).
    - **Output:**  
-     The change point dates (formatted as Month-Year) are printed to the console.
-
-
-
-**Resulting PELT Diagnostic (Elbow) Plot:**
-<table>
-  <tr>
-    <td align="center">
-      <img src="BTC IMAGES/BTC-WEEKLY-ELBOW.png" alt="PELT Elbow Plot" width="400"/>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <strong>Diagnostic Elbow Plot for PELT Change Point Detection</strong>
-    </td>
-  </tr>
-</table>
-
+     The estimated change point dates are printed to the console for further analysis.
+     
+   **Resulting PELT Diagnostic (Elbow) Plot:**
+   <table>
+     <tr>
+       <td align="center">
+         <img src="BTC IMAGES/BTC-WEEKLY-ELBOW.png" alt="PELT Elbow Plot" width="400"/>
+       </td>
+     </tr>
+     <tr>
+       <td align="center">
+         <strong>Diagnostic Elbow Plot for PELT Change Point Detection</strong>
+       </td>
+     </tr>
+   </table>
      
    **Resulting Monthly Plot:**
    <table>
@@ -331,24 +326,28 @@ This section of the repository applies change point detection techniques to real
        <td align="center" colspan="2"><strong>Monthly Analysis: Change Point Detection and Diagnostics on Bitcoin Log Returns</strong></td>
      </tr>
    </table>
-
-   **Resulting Weekly Plot:**
-<table>
-  <tr>
-    <td align="center">
-      <img src="BTC IMAGES/PBS-BTC-WEEKLY.png" alt="Weekly Log Returns CPD" width="400"/>
-    </td>
-    <td align="center">
-      <img src="BTC IMAGES/BTC-WEEKLY-RETURNS.png" alt="Weekly Log Returns Diagnostics" width="400"/>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" colspan="2">
-      <strong>Weekly Analysis: Change Point Detection and Diagnostics on Bitcoin Log Returns</strong>
-    </td>
-  </tr>
-</table>
    
+   **Resulting Weekly Plot:**
+   <table>
+     <tr>
+       <td align="center">
+         <img src="BTC IMAGES/PBS-BTC-WEEKLY.png" alt="Weekly Log Returns CPD" width="400"/>
+       </td>
+       <td align="center">
+         <img src="BTC IMAGES/BTC-WEEKLY-RETURNS.png" alt="Weekly Log Returns Diagnostics" width="400"/>
+       </td>
+     </tr>
+     <tr>
+       <td align="center" colspan="2">
+         <strong>Weekly Analysis: Change Point Detection and Diagnostics on Bitcoin Log Returns</strong>
+       </td>
+     </tr>
+   </table>
+
+---
+
+Each script implements rigorous statistical procedures, underpinned by likelihood-based inference and information criteria, to detect structural breaks in Bitcoin returns. The CPD results are further validated through diagnostic tests and visualized with custom plots that align the change points with calendar dates.
+
    
 ---
 
