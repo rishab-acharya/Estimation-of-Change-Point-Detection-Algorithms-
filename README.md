@@ -352,14 +352,10 @@ Each script implements rigorous statistical procedures, underpinned by likelihoo
 ---
 
 
-
-
-
 ## Prerequisites
 
-Ensure that you have R (version 3.5 or later) installed along with the following package:
+To run the simulation study and Bitcoin price analysis, ensure you have R (version 3.5 or later) installed. The following R packages are required. If any package is not already installed, you can install them using the commands below:
 
-- **changepoint**  
-  Install using:
+- **changepoint** – For change point detection methods (`cpt.mean`, `cpt.var`, `cpt.meanvar`).
   ```r
   install.packages("changepoint")
