@@ -28,7 +28,7 @@ Different detection methods (PELT and BinSeg) and various penalty criteria (AIC,
   - **Plots:**  
     <table>
       <tr>
-        <td><img src="IMAGES/SCP-MEAN-CP.png" alt="SCP Mean CP Overlay" width="400"/></td>
+        <td><img src="IMAGES/SCP-MEAN- CP.png" alt="SCP Mean CP Overlay" width="400"/></td>
         <td><img src="IMAGES/PBS-SCP-MEAN.png" alt="SCP Mean" width="400"/></td>
         <td><img src="IMAGES/PBS-SCP-MEAN-MAD.png" alt="SCP Mean with MAD Normalization" width="400"/></td>
       </tr>
