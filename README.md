@@ -215,7 +215,7 @@ This section of the repository applies change point detection techniques to real
    <table>
      <tr>
        <td align="center">
-         <img src="BTC_IMAGES/RAW-EGARCH-BTC.png" alt="Raw Log Returns CPD" width="400"/>
+         <img src="BTC IMAGES/RAW-EGARCH-BTC.png" alt="Raw Log Returns CPD" width="400"/>
        </td>
      </tr>
      <tr>
@@ -235,7 +235,7 @@ This section of the repository applies change point detection techniques to real
    <table>
      <tr>
        <td align="center">
-         <img src="BTC_IMAGES/BS-BTC-WEEKLY.png" alt="Weekly Log Returns CPD" width="400"/>
+         <img src="BTC IMAGES/BS-BTC-WEEKLY.png" alt="Weekly Log Returns CPD" width="400"/>
        </td>
      </tr>
      <tr>
@@ -259,18 +259,18 @@ This section of the repository applies change point detection techniques to real
    <table>
   <tr>
     <td align="center">
-      <img src="BTC_IMAGES/BTC-ROLLING AVG.png" alt="Raw Log Returns CPD" width="400"/>
+      <img src="BTC IMAGES/BTC-ROLLING AVG.png" alt="Raw Log Returns CPD" width="400"/>
     </td>
     <td align="center">
-      <img src="BTC_IMAGES/BTC-ROLLING SD.png" alt="EGARCH Residuals CPD" width="400"/>
+      <img src="BTC IMAGES/BTC-ROLLING SD.png" alt="EGARCH Residuals CPD" width="400"/>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="BTC_IMAGES/BTC-ACF.png" alt="EGARCH Residual ACF" width="400"/>
+      <img src="BTC IMAGES/BTC-ACF.png" alt="EGARCH Residual ACF" width="400"/>
     </td>
     <td align="center">
-      <img src="BTC_IMAGES/BTC-HIST-QQ.png" alt="EGARCH Diagnostics" width="400"/>
+      <img src="BTC IMAGES/BTC-HIST-QQ.png" alt="EGARCH Diagnostics" width="400"/>
     </td>
   </tr>
   <tr>
@@ -297,7 +297,7 @@ This section of the repository applies change point detection techniques to real
 <table>
   <tr>
     <td align="center">
-      <img src="BTC_IMAGES/BTC-WEEKLY-ELBOW.png" alt="PELT Elbow Plot" width="400"/>
+      <img src="BTC IMAGES/BTC-WEEKLY-ELBOW.png" alt="PELT Elbow Plot" width="400"/>
     </td>
   </tr>
   <tr>
@@ -312,10 +312,10 @@ This section of the repository applies change point detection techniques to real
    <table>
      <tr>
        <td align="center">
-         <img src="BTC_IMAGES/PBS-BTC-MONTHLY.png" alt="Monthly Log Returns CPD" width="400"/>
+         <img src="BTC IMAGES/PBS-BTC-MONTHLY.png" alt="Monthly Log Returns CPD" width="400"/>
        </td>
        <td align="center">
-         <img src="BTC_IMAGES/BTC-MONTHLY-LOG.png" alt="Monthly Log Returns Diagnostics" width="400"/>
+         <img src="BTC IMAGES/BTC-MONTHLY-LOG.png" alt="Monthly Log Returns Diagnostics" width="400"/>
        </td>
      </tr>
      <tr>
@@ -327,10 +327,10 @@ This section of the repository applies change point detection techniques to real
 <table>
   <tr>
     <td align="center">
-      <img src="BTC_IMAGES/PBS-BTC-WEEKLY.png" alt="Weekly Log Returns CPD" width="400"/>
+      <img src="BTC IMAGES/PBS-BTC-WEEKLY.png" alt="Weekly Log Returns CPD" width="400"/>
     </td>
     <td align="center">
-      <img src="BTC_IMAGES/BTC-WEEKLY-RETURNS.png" alt="Weekly Log Returns Diagnostics" width="400"/>
+      <img src="BTC IMAGES/BTC-WEEKLY-RETURNS.png" alt="Weekly Log Returns Diagnostics" width="400"/>
     </td>
   </tr>
   <tr>
