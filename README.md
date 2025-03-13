@@ -14,6 +14,8 @@ This repository contains a collection of R scripts that perform change point det
     - Implements single change point detection functions using both BinSeg and PELT (with Q set to 1).
     - Provides repeated simulation functions and sensitivity analyses (with and without MAD normalization).
     - Generates sensitivity plots and visualizations for single change point detection under different noise conditions.
+    - ![Pelt and BinSeg detecting a single change in mean](IMAGES/PBS-SCP-MEAN.png)
+
 
 - **PBS-MCP-MEAN.R**  
   - **Purpose:**  
